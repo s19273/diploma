@@ -41,7 +41,7 @@ export class AppComponent implements OnInit {
       if (this.isSessionActive) {
         this.getSnapshot()
         this.http.get(
-          "http://127.0.0.1:8000/api/sessions/" + this.currentSessionId + "/get-logs/")
+          "http://46.41.136.49:8000/api/sessions/" + this.currentSessionId + "/get-logs/")
           .subscribe((data) => this.currentSession = JSON.parse(JSON.stringify(data)))
       }
     }, 750)
@@ -52,7 +52,7 @@ export class AppComponent implements OnInit {
     this.capturedImage = webcamImage!.imageAsDataUrl
 
     this.http.post(
-      'http://127.0.0.1:8000/api/send-image-for-detection/',
+      'http://46.41.136.49:8000/api/send-image-for-detection/',
       {
         image: this.capturedImage,
         session: { session_id: this.currentSessionId }
@@ -66,7 +66,7 @@ export class AppComponent implements OnInit {
     // Closes current session
     if (this.currentSessionId) {
       this.http.post(
-        "http://127.0.0.1:8000/api/sessions/" + this.currentSessionId + "/close-session/", null)
+        "http://46.41.136.49:8000/api/sessions/" + this.currentSessionId + "/close-session/", null)
         .pipe(map(response => response as any)).subscribe(response => console.log(response))
       this.currentSessionId = null
     }
@@ -83,7 +83,7 @@ export class AppComponent implements OnInit {
     localStorage.setItem('isSessionActive', 'false');
 
     this.http.post(
-      "http://127.0.0.1:8000/api/sessions/" + this.currentSessionId + "/close-session/", null)
+      "http://46.41.136.49:8000/api/sessions/" + this.currentSessionId + "/close-session/", null)
       .pipe(map(response => response as any)).subscribe(response => {
         console.log(response)
       })
@@ -114,7 +114,7 @@ export class AppComponent implements OnInit {
   }
 
   openBrowseSessionModal() {
-    this.http.get("http://127.0.0.1:8000/api/sessions/")
+    this.http.get("http://46.41.136.49:8000/api/sessions/")
       .subscribe((data) => this.loadedSessions = JSON.parse(JSON.stringify(data)))
     this.showBrowseSessionModal = true;
   }
@@ -125,7 +125,7 @@ export class AppComponent implements OnInit {
 
   openSessionDetailsModal(id: String) {
     this.http.get(
-      "http://127.0.0.1:8000/api/sessions/" + id + "/get-logs/")
+      "http://46.41.136.49:8000/api/sessions/" + id + "/get-logs/")
       .subscribe((data) => this.browsedSessionDetails = JSON.parse(JSON.stringify(data)))
     this.showSessionDetailsModal = true
   }
