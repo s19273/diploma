@@ -1,0 +1,97 @@
+<html>
+
+<body>
+
+  <div class="app-container">
+
+    <div class="topbar">
+
+      <!-- TODO server status-->
+      <span style="color: green;">ONLINE</span>
+
+      <img class="logo" style="height: 50px;" src="../assets/pjatk_logo_transparent.png" />
+
+      <p class="timer">{{time}}</p>
+
+    </div>
+
+    <div class="wrapper">
+
+      <button (click)="openBrowseSessionModal()">Browse Sessions</button>
+
+      <div class="session-controls">
+        <button (click)="newSession()" style="color: green;">Start Session</button>
+        <button (click)="finishSession()" style="color: red;">Finish Session</button>
+      </div>
+
+      <span *ngIf="!currentSessionId" class="session-label">No ongoing session on this device.</span>
+
+      <div *ngIf="currentSessionId">
+        <span class="session-label"> Session ID </span>
+        <span class="session-label"> <b>{{currentSessionId}}</b> </span>
+      </div>
+
+
+      <div style="margin: 10px;">
+        <img *ngIf="!isSessionActive" class="placeholder" src="../assets/placeholder.png">
+        <webcam *ngIf="isSessionActive" [trigger]="invokeObservable" [videoOptions]="videoOptions"
+          (imageCapture)="sendFrameForDetection($event)"></webcam>
+      </div>
+
+      <div *ngIf="currentSession">
+        <span>Current session log ({{currentSession.length}} Logs) </span>
+        <ul class="current-log">
+          <li *ngFor="let log of currentSession">
+            <span>{{log.message}}
+              <br>
+              <img (click)="openImage(log.image.image.toString())" src="{{log.image.image}}"
+                style="max-height: 160px; max-width: 320px; cursor: pointer;">
+            </span>
+          </li>
+        </ul>
+      </div>
+
+
+      <h5 class="copyright">Hubert Janoszka @ PJATK | 2023</h5>
+    </div>
+
+  </div>
+
+  <!-- Browse session modal -->
+  <div *ngIf="showBrowseSessionModal" class="modal">
+    <div class="modal-content wrapper">
+      <button (click)="closeBrowseSessionModal()">Close</button>
+      <ol>
+        <li *ngFor="let session of loadedSessions">
+          <button *ngIf="session.is_active" (click)="openSessionDetailsModal(session.session_id)">
+            <span style="color: green;">Active</span><br>
+            Start: {{session.created_at}}
+          </button>
+          <button *ngIf="!session.is_active" (click)="openSessionDetailsModal(session.session_id)">
+            <span style="color: red;">Finished</span><br>
+            Start: {{session.created_at}}<br>End: {{session.finished_at}}
+          </button>
+        </li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- Session details modal -->
+  <div *ngIf="showSessionDetailsModal" class="modal">
+    <div class="modal-content wrapper">
+      <button (click)="closeSessionDetailsModal()">Back</button>
+      <ul>
+        <li *ngFor="let log of browsedSessionDetails">
+          <span>{{log.message}}
+            <br>
+            <img (click)="openImage(log.image.image.toString())" src="{{log.image.image}}"
+              style="max-height: 160px; max-width: 320px; cursor: pointer;">
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+</body>
+
+</html>
