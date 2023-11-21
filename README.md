@@ -66,3 +66,30 @@ Otherwise try running server with following command:
 And use the following link to open it:
 
 http://0.0.0.0:4200/
+
+# Deploy
+
+```bash
+# Setup Docker containers
+chmod +x entrypoint.prod.sh
+
+docker compose -f docker-compose.prod.yml up -d --build
+
+# When Docker containers run properly (test with "docker ps") create
+
+docker compose -f docker-compose.prod.yml exec web python manage.py makemigrations --noinput
+
+docker compose -f docker-compose.prod.yml exec web python manage.py migrate --noinput
+
+docker compose -f docker-compose.prod.yml exec web python manage.py collectstatic --no-input --clear
+
+docker compose -f docker-compose.prod.yml exec web python manage.py createsuperuser
+
+# Enable SSL
+ssl generate dry
+
+docker compose -f docker-compose.prod.yml run --rm  certbot certonly --webroot --webroot-path /var/www/certbot/ --dry-run -d 19273.pl
+
+ssl generate
+docker compose -f docker-compose.prod.yml run --rm  certbot certonly --webroot --webroot-path /var/www/certbot/ -d api.19273.pl
+```
