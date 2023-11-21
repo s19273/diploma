@@ -41,7 +41,7 @@ http://46.41.136.49:8000/api/send-image-for-detection/
 | Package    | Version |
 | ---------- | ------- |
 | Angular    | 15.2.0  |
-| Node.js    | 14.17.3 |
+| Node.js    | 20.93   |
 | TypeScript | 4.8.4   |
 | Zone.js    | 0.13.0  |
 
