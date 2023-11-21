@@ -1,7 +1,14 @@
-diploma-frontend/node_modules
-diploma-frontend/package-lock.json
-diploma-frontend/npm-debug.log
-diploma-frontend/.angular
+nginx/diploma-frontend/node_modules
+nginx/diploma-frontend/package-lock.json
+nginx/diploma-frontend/npm-debug.log
+nginx/diploma-frontend/.angular
+
+.git
+
+mediafiles/
+
+venv/
 
 *DS_store
 *dump.rdb
+db.sqlite3
