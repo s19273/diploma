@@ -1,4 +1,4 @@
-FROM node:12.16.1-alpine AS builder
+FROM node:14.17.3-alpine AS builder
 
 
 WORKDIR /diploma-frontend
