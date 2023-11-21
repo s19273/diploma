@@ -24,15 +24,15 @@ If `redis` is already running kill it with `redis-cli shutdown`
 
 ### Endpoints
 
-http://46.41.136.49:8000/admin/
+https://api.19273.pl/admin/
 
-http://46.41.136.49:8000/api/
+https://api.19273.pl/api/
 
-http://46.41.136.49:8000/api/log-items/
+https://api.19273.pl/api/log-items/
 
-http://46.41.136.49:8000/api/images/
+https://api.19273.pl/api/images/
 
-http://46.41.136.49:8000/api/send-image-for-detection/
+https://api.19273.pl/api/send-image-for-detection/
 
 # Frontend
 
